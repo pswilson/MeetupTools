@@ -9,6 +9,7 @@ Meetup attendance aggregator
 You'll need a a few environment variables set for this to run.
 
 MEETUP_API_BASE = <the_meetup_api_url>
+
 MEETUP_API_KEY = <your_api_key>
 
 ### Things to do (in no particular order or structure):
