@@ -1,8 +1,8 @@
 # Meetup Utilities
 
-Meetup attendance aggregator
+## Scripts
 
-... or at least the basic start of one
+attendance.py - Meetup attendance aggregator ... or at least the basic start of one
 
 ### Configuration
 
@@ -14,6 +14,8 @@ MEETUP_API_KEY = <your_api_key>
 
 ### Things to do (in no particular order or structure):
 
+* error handling
+* avoidance of Meetup API rate limits
 * create linked meetup events (common events across meetup groups)
     * consolidate attendance info across linked events
 * structure as a service
