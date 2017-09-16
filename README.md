@@ -2,8 +2,8 @@
 
 ## Scripts
 
-attendance.py - Meetup attendance aggregator ... or at least the basic start of one
-membership.py - Meetup group membership ... eventually to find unique membership across groups
+* attendance.py - Meetup attendance aggregator ... or at least the basic start of one
+* membership.py - Meetup group membership ... eventually to find unique membership across groups
 
 ### Configuration
 
