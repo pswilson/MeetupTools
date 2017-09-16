@@ -1,3 +1,4 @@
+import os
 import requests
 
 #apiBase = 'https://api.meetup.com'
