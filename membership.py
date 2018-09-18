@@ -63,6 +63,8 @@ def parseLinkHeader(hdr):
 def getPagedResults(start_url):
     members = {}
 
+    print("Getting members from {} ".format(start_url), end='', flush=True)
+
     next_url = start_url
     while next_url:
         r = requests.get(next_url)
@@ -85,7 +87,7 @@ def getPagedResults(start_url):
                 next_url = links['next']
                 print('.', end='', flush=True)
 
-    print()
+    print() # finish out the line
 
     return members
 
@@ -113,7 +115,7 @@ def getMembers(group_url):
 
 def getMembershipForGroup(group_url):
     global overall_members
-    print("Getting members for: {}".format(group_url))
+    # print("Getting members for: {}".format(group_url))
     members = getMembers(group_url)
     print('{} members in {}'.format(len(members), group_url))
     for k, v in members.items():
