@@ -19,14 +19,15 @@ groupUrlNames = [
    'python-frederick',
    'Frederick-3d-Printing-and-Maker-Tech-Group',
    'KeyLUG',
+   'Frederick-NET-Meetup',
+   'Frederick-Game-Development-Meetup',
    'Frederick-Crypto',
+   'function-FrontendMasters',
+   'Frederick-Infosec',
    'Frederick-Innovative-Technology-Center',
    'FSpace',
-   'FredCoBio-BioBeers'
-   # InfoSec
-   # GameDev
-   # FrontEnd
-   # WordPress
+   'FredCoBio-BioBeers',
+   'Frederick-WordPress-Meetup'
 ]
 
 members_api_path = 'members'
