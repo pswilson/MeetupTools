@@ -12,7 +12,7 @@ api_key = os.environ['MEETUP_API_KEY']
 # API calls using an api key require ... ?key=<api_key>&sign=true
 auth_params = {'sign': 'true', 'key': api_key}
 
-groupUrlNames = [
+group_url_names = [
    'Frederick-Startup-Community',
    'FredWebTech',
    'AWS-Frederick-Meetup',
@@ -35,12 +35,10 @@ members_api_path = 'members'
 # GET: api_base + '/' <group_url_name> + '/members'
 #    Response is a json array of member objects
 
-overall_members = {}
-
 def parseLinkHeader(hdr):
 
     # NOTE: Multiple link header values may be returned
-    #       which will be combined into a single comma sedparted list by the requests library
+    #       which will be combined into a single comma separated list by the requests library
 
     # link header will look something like this ...
     #   <https://api.meetup.com/Frederick-Startup-Community/members?sign=true&page=100&offset=1>; rel="next"
@@ -62,6 +60,14 @@ def parseLinkHeader(hdr):
     return links
 
 def getPagedResults(start_url):
+    # Note: Need to use page and offset to get more than 200 users
+    # page is max number of items returned per request (max of 200)
+    # offset is 0 based page number
+    # (NOTE: an offset greater than the actual number of pages based on the
+    #        number of possible results seems to always return the last page of data)
+    # Total number of possible responses is in the header "x-total-count"
+    # link header contains a link to the "next" and/or "prev" page
+
     members = {}
 
     print("Getting members from {} ".format(start_url), end='', flush=True)
@@ -92,37 +98,22 @@ def getPagedResults(start_url):
 
     return members
 
-def getMembers(group_url):
-    # Note: Need to use page and offset to get more than 200 users
-    # page is max number of items returned per request (max of 200)
-    # offset is 0 based page number
-    # (NOTE: an offset greater than the actual number of pages based on the
-    #        number of possible results seems to always return the last page of data)
-    # Total number of possible responses is in the header "x-total-count"
-    # link header contains a link to the "next" and/or "prev" page
+overall_members = {}    # set of all members found across all groups
+group_stats = {}        # count of members per group
 
-    # filter_params = {'only': 'id,name'}
-    # page_params = {'page': 100}
-    # offset = 0
-    # members = {}
-
-    # combined_params = {}
-    # combined_params.update(auth_params)
-    # combined_params.update(page_params)
-
+for group_url in group_url_names:
     request_url = '{}/{}/{}'.format(api_base, group_url, members_api_path)
-
-    return getPagedResults(request_url)
-
-def getMembershipForGroup(group_url):
-    global overall_members
-    # print("Getting members for: {}".format(group_url))
-    members = getMembers(group_url)
-    print('{} members in {}'.format(len(members), group_url))
+    members = getPagedResults(request_url)
+    group_stats[group_url] = len(members)
+    # Add all members to the overall member set
     for k, v in members.items():
         overall_members[k] = v
 
-for groupUrl in groupUrlNames:
-    getMembershipForGroup(groupUrl)
+# Print a table of the membership counts
+total_cnt = 0
+for grp, cnt in group_stats.items():
+    total_cnt += cnt
+    print(f'{grp:45} {cnt:10d}')
 
-print('{} unique members.'.format(len(overall_members)))
+print('{} members in {} Meetup groups with {} unique members.'.format(
+    total_cnt, len(group_url_names), len(overall_members)))
