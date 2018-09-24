@@ -26,8 +26,9 @@ group_url_names = [
    'Frederick-Infosec',
    'Frederick-Innovative-Technology-Center',
    'FSpace',
-   'FredCoBio-BioBeers',
-   'Frederick-WordPress-Meetup'
+#    'FredCoBio-BioBeers',
+   'Frederick-WordPress-Meetup',
+   'Western-Maryland-Web-Developers'
 ]
 
 members_api_path = 'members'
